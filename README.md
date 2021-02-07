@@ -18,3 +18,8 @@ If you are using docker:
     Escape character is '^]'.
     INFO {"server_id":"NAE4EF5PDNNCEHW2P476MV6QK4TGJT2SXND5P5ZFCFE4DD3KNOQMPYCM","server_name":"NAE4EF5PDNNCEHW2P476MV6QK4TGJT2SXND5P5ZFCFE4DD3KNOQMPYCM","version":"2.1.9","proto":1,"git_commit":"7c76626","go":"go1.14.10","host":"0.0.0.0","port":4222,"max_payload":1048576,"client_id":1,"client_ip":"172.17.0.1"}
     ```
+
+## Notes
+
+- Official documentation of `nats`: https://docs.nats.io/
+- npm `nats` page: https://www.npmjs.com/package/nats 
