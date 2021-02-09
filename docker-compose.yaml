@@ -1,0 +1,24 @@
+version: "3"
+services:
+  nats:
+    image: nats
+    expose:
+      - '4222'
+    ports:
+      - '8222:8222'
+    networks:
+      - nats-net
+
+  sum:
+    build: ./sum-service-messaging
+    links:
+      - nats
+    environment:
+      NATS_URI: nats://nats:4222
+    depends_on:
+      - nats
+    networks:
+      - nats-net
+networks:
+  nats-net:
+    driver: bridge
