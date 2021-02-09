@@ -1,1 +1,2 @@
 node_modules
+/sum-service-messaging/.env

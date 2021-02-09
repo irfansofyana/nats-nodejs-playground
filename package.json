@@ -4,11 +4,13 @@
   "description": "- Download & Install `nats` server\r - Run `nats` server\r - Run the application",
   "main": "index.js",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "nats": "^1.4.12"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sum-service": "node sum-service-messaging/index.js"
   },
   "repository": {
     "type": "git",
