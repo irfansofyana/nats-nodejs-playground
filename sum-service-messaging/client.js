@@ -1,11 +1,9 @@
 require('dotenv').config()
 const NATS = require('nats')
 
-console.log(process.env.NATS_URL)
-
 nc = NATS.connect({
     json: true,
-    url: process.env.NATS_URL
+    url: process.env.NATS_URI
 })
 
 module.exports = nc
