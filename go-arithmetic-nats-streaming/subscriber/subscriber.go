@@ -13,37 +13,39 @@ import (
 
 // Subscribe ...
 func Subscribe() {
-	clientID := "arithService"
-	clusterID := "myCluster"
+	go func() {
+		clientID := "subscriber"
+		clusterID := "test-cluster"
 
-	sc, err := stan.Connect(clusterID, clientID)
-	if err != nil {
-		log.Fatalf("Subscriber Connection Error: %v", err)
-	}
-	defer sc.Close()
+		sc, err := stan.Connect(clusterID, clientID)
+		if err != nil {
+			log.Fatalf("Subscriber Connection Error: %v", err)
+		}
+		defer sc.Close()
 
-	sub, err := sc.Subscribe("arithmetic", func(m *stan.Msg) {
-		var r *s.ArithmeticDS
-		err := json.Unmarshal(m.Data, r)
+		sub, err := sc.Subscribe("arithmetic", func(m *stan.Msg) {
+			var r s.ArithmeticDS
+			err := json.Unmarshal(m.Data, &r)
+			if err != nil {
+				log.Fatal(err)
+			}
+			time.Sleep(10 * time.Millisecond)
+			fmt.Printf(
+				"  Got request: %v %c %v = %v\n",
+				r.A, r.OP,
+				r.B,
+				s.GetResult(&r),
+			)
+		},
+			stan.DurableName("subscriber"), // Please remember what I have already received. // HL
+			// stan.DeliverAllAvailable(), // HL
+		)
+
 		if err != nil {
 			log.Fatal(err)
 		}
-		time.Sleep(10 * time.Millisecond)
-		fmt.Printf(
-			"  Got request: %v %c %v = %v\n",
-			r.A, r.OP,
-			r.B,
-			s.GetResult(r),
-		)
-	},
-		stan.DurableName("arithService"), // Please remember what I have already received. // HL
-		//stan.DeliverAllAvailable(), // HL
-	)
+		defer sub.Close()
 
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer sub.Close()
-
-	select {}
+		select {}
+	}()
 }

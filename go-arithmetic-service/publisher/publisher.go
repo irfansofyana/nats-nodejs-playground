@@ -27,8 +27,8 @@ func Publish() {
 	go func() {
 		for {
 			request := &s.ArithmeticDS{
-				A:  int64(rand.Int63n(100)),
-				B:  int64(rand.Int63n(100)),
+				A:  int64(rand.Int63n(100) + 1),
+				B:  int64(rand.Int63n(100) + 1),
 				OP: s.RandomOP(rand.Intn(4)),
 			}
 			if err := c.Publish("arithmetic", request); err != nil {
