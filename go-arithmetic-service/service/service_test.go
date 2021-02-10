@@ -1,13 +1,9 @@
 package service
 
-import (
-	"testing"
-
-	s "github.com/irfansofyana/nats-playground/go-arithmetic-nats-streaming/service"
-)
+import "testing"
 
 func TestStub(t *testing.T) {
-	dat := []s.ArithmeticDS{
+	dat := []ArithmeticDS{
 		{A: 20, B: 12, OP: '+'},
 		{A: 20, B: 13, OP: '-'},
 		{A: 12, B: 15, OP: '*'},
@@ -22,7 +18,7 @@ func TestStub(t *testing.T) {
 	}
 
 	for i, v := range dat {
-		result := s.GetResult(&v)
+		result := GetResult(&v)
 		if result != expectedResult[i] {
 			t.Errorf("Case %d: unexpected value: %v expected %v", i, result, expectedResult[i])
 		}
